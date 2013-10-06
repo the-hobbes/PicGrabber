@@ -1,0 +1,19 @@
+{
+  "name": "Pic Grabber",
+  "version": "2.0",
+  "permissions": [
+    "activeTab",
+    "tabs", 
+    "downloads"
+  ],
+  "background": {
+    "scripts": ["loader.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Download pictures from this page.",
+    "default_icon": "icon.png"
+    // "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
