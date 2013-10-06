@@ -32,7 +32,9 @@ function checkImageSize(IMAGE_URLS) {
 
 function downloadImage(src) {
 	// download the requested images
+	// https://www.dropbox.com/developers/dropins/saver
 	console.log(src);
+
 }
 
 function main(){
