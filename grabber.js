@@ -1,3 +1,7 @@
+//constants
+var HEIGHT = 500;
+var WIDTH = 500;
+
 function parseUrls() {
 	// get the urls of the images 
 	var images = document.getElementsByTagName('img'); 
@@ -12,18 +16,23 @@ function parseUrls() {
 
 function checkImageSize(IMAGE_URLS) {
 	// check the image size to see if it is large enough to warrant a download
-	
-	var img = new Image();
-	img.onload = function() {
-	  alert(this.width + 'x' + this.height);
+	for (var i = 0; i < IMAGE_URLS.length; i++){
+		//check the size of each image
+		var img = new Image();
+		img.onload = function() {
+		  console.log( "Image SRC: " + this.src + " \t Image Size: " + this.width + 'x' + this.height);
+
+		  //logic check for image size here
+		  if (this.width > WIDTH)
+			  downloadImage(this.src);
+		}
+		img.src = IMAGE_URLS[i];
 	}
-	img.src = 'http://www.google.com/intl/en_ALL/images/logo.gif';
-	// img.src = 'http://i.imgur.com/ghE6vol.jpg';
 }
 
-function downloadImage(image) {
+function downloadImage(src) {
 	// download the requested images
-	return null;
+	console.log(src);
 }
 
 function main(){
@@ -31,9 +40,9 @@ function main(){
 	var IMAGE_URLS = parseUrls();
 	checkImageSize(IMAGE_URLS);
 
-	for (var i = 0; i <IMAGE_URLS.length; i++){
-		console.log(IMAGE_URLS);
-	}
+	// for (var i = 0; i <IMAGE_URLS.length; i++){
+	// 	console.log(IMAGE_URLS);
+	// }
 }
 
 //kick off
