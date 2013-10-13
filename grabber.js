@@ -1,3 +1,7 @@
+/**
+	This is the content script file. Coordinated by background.js
+**/
+
 //constants
 var HEIGHT = 500;
 var WIDTH = 500;
@@ -50,3 +54,7 @@ function main(){
 //kick off
 console.log("got to grabber.js")
 main()
+
+chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+  console.log(response.farewell);
+});
