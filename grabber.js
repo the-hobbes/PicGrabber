@@ -48,4 +48,5 @@ function main(){
 }
 
 //kick off
+console.log("got to grabber.js")
 main()
