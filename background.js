@@ -10,6 +10,7 @@
 // });
 
 var IMAGE_URLS = []
+var test = "hodor";
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
