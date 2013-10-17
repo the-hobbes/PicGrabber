@@ -42,19 +42,27 @@ function downloadImage(src) {
 }
 
 function main(){
-	//run the script
+	// find the images
 	var IMAGE_URLS = parseUrls();
-	checkImageSize(IMAGE_URLS);
 
-	// for (var i = 0; i <IMAGE_URLS.length; i++){
-	// 	console.log(IMAGE_URLS);
-	// }
+	if (IMAGE_URLS){
+		// if we have images, check the size
+		checkImageSize(IMAGE_URLS);
+		// then send them to the background page
+		chrome.runtime.sendMessage({data: IMAGE_URLS}, function(response) {
+		  console.log(response.backgroundResponse);
+		});
+	}
+	else{
+		// tell the background page we've got nothing
+		chrome.runtime.sendMessage({greeting: null}, function(response) {
+		  console.log(response.farewell);
+		});
+	}
+	
 }
 
 //kick off
 console.log("got to grabber.js")
 main()
 
-chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-  console.log(response.farewell);
-});
