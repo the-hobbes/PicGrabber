@@ -25,23 +25,18 @@ function checkImageSize(imageUrls) {
 	for (var i = 0; i < imageUrls.length; i++){
 		//check the size of each image
 		var img = new Image();
-		img.onload = function() {
-		  console.log( "Image SRC: " + this.src + " \t Image Size: " + this.width + 'x' + this.height);
-
-		  //logic check for image size here
-		  if (this.width > WIDTH)
-			  downloadImage(this.src);
-		  
-		}// end onload
 		img.src = imageUrls[i];
+		// console.log( "Image SRC: " + img.src + " \t Image Size: " + img.width + 'x' + img.height);
+		if (img.width > WIDTH)
+			BACON.push(img.src);
 	}
 }
 
-function downloadImage(src) {
-	// download the requested images
-	// https://www.dropbox.com/developers/dropins/saver
-	console.log(src);
-	BACON.push(src);
+function negResponse(){
+	// tell the background page we've got nothing
+	chrome.runtime.sendMessage({greeting: null}, function(response) {
+		  console.log(response.farewell);
+	});
 }
 
 function main(){
@@ -52,20 +47,17 @@ function main(){
 	if (imageUrls){
 		// if we have images, check the size
 		checkImageSize(imageUrls);
-		console.log("Bacon:");
-		console.log(BACON);
-		// then send them to the background page
-		chrome.runtime.sendMessage({data: imageUrls}, function(response) {
-		  console.log(response.backgroundResponse);
-		});
+		if(BACON){
+			// then send them to the background page
+			chrome.runtime.sendMessage({data: BACON}, function(response) {
+			  console.log(response.backgroundResponse);
+			});
+		}
+		else
+			negResponse();
 	}
-	else{
-		// tell the background page we've got nothing
-		chrome.runtime.sendMessage({greeting: null}, function(response) {
-		  console.log(response.farewell);
-		});
-	}
-	
+	else
+		negResponse();
 }
 
 //kick off
