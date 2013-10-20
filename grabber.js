@@ -2,9 +2,10 @@
 	This is the content script file. Coordinated by background.js
 **/
 
-//constants
+//constants/globals
 var HEIGHT = 500;
 var WIDTH = 500;
+var BACON = []; // bacon is what we want.
 
 function parseUrls() {
 	// get the urls of the images 
@@ -18,9 +19,10 @@ function parseUrls() {
 	return srcList;
 }
 
-function checkImageSize(IMAGE_URLS) {
+function checkImageSize(imageUrls) {
+	
 	// check the image size to see if it is large enough to warrant a download
-	for (var i = 0; i < IMAGE_URLS.length; i++){
+	for (var i = 0; i < imageUrls.length; i++){
 		//check the size of each image
 		var img = new Image();
 		img.onload = function() {
@@ -29,8 +31,9 @@ function checkImageSize(IMAGE_URLS) {
 		  //logic check for image size here
 		  if (this.width > WIDTH)
 			  downloadImage(this.src);
-		}
-		img.src = IMAGE_URLS[i];
+		  
+		}// end onload
+		img.src = imageUrls[i];
 	}
 }
 
@@ -38,18 +41,21 @@ function downloadImage(src) {
 	// download the requested images
 	// https://www.dropbox.com/developers/dropins/saver
 	console.log(src);
-
+	BACON.push(src);
 }
 
 function main(){
 	// find the images
-	var IMAGE_URLS = parseUrls();
+	console.log("got to grabber.js")
+	var imageUrls = parseUrls();
 
-	if (IMAGE_URLS){
+	if (imageUrls){
 		// if we have images, check the size
-		checkImageSize(IMAGE_URLS);
+		checkImageSize(imageUrls);
+		console.log("Bacon:");
+		console.log(BACON);
 		// then send them to the background page
-		chrome.runtime.sendMessage({data: IMAGE_URLS}, function(response) {
+		chrome.runtime.sendMessage({data: imageUrls}, function(response) {
 		  console.log(response.backgroundResponse);
 		});
 	}
@@ -63,6 +69,5 @@ function main(){
 }
 
 //kick off
-console.log("got to grabber.js")
 main()
 
