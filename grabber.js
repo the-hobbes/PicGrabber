@@ -41,7 +41,7 @@ function negResponse(){
 
 function main(){
 	// find the images
-	console.log("got to grabber.js")
+	// console.log("got to grabber.js")
 	var imageUrls = parseUrls();
 
 	if (imageUrls){
