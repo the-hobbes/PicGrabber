@@ -5,7 +5,6 @@
 //constants/globals
 var HEIGHT = 500;
 var WIDTH = 500;
-var BACON = []; // bacon is what we want.
 
 function parseUrls() {
 	// get the urls of the images 
@@ -20,7 +19,7 @@ function parseUrls() {
 }
 
 function checkImageSize(imageUrls) {
-	
+	var bacon = []; // bacon is what we want.
 	// check the image size to see if it is large enough to warrant a download
 	for (var i = 0; i < imageUrls.length; i++){
 		//check the size of each image
@@ -28,8 +27,9 @@ function checkImageSize(imageUrls) {
 		img.src = imageUrls[i];
 		// console.log( "Image SRC: " + img.src + " \t Image Size: " + img.width + 'x' + img.height);
 		if (img.width > WIDTH)
-			BACON.push(img.src);
+			bacon.push(img.src);
 	}
+	return bacon
 }
 
 function negResponse(){
@@ -39,6 +39,19 @@ function negResponse(){
 	});
 }
 
+function removeDuplicates(things){
+	var arr = {};
+
+	for ( var i=0; i < things.length; i++ )
+	    arr[things[i]['src']] = things[i];
+
+	things = new Array();
+	for ( key in arr )
+	    things.push(arr[key]);
+
+	return things;
+}
+
 function main(){
 	// find the images
 	// console.log("got to grabber.js")
@@ -46,10 +59,13 @@ function main(){
 
 	if (imageUrls){
 		// if we have images, check the size
-		checkImageSize(imageUrls);
-		if(BACON){
+		bacon = checkImageSize(imageUrls);
+		// remove the duplicates
+		bacon = removeDuplicates(bacon);
+
+		if(bacon){
 			// then send them to the background page
-			chrome.runtime.sendMessage({data: BACON}, function(response) {
+			chrome.runtime.sendMessage({data: bacon}, function(response) {
 			  console.log(response.backgroundResponse);
 			});
 		}
