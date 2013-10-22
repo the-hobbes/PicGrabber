@@ -4,7 +4,7 @@
 
 //constants/globals
 var HEIGHT = 500;
-var WIDTH = 500;
+var WIDTH = 50;
 
 function parseUrls() {
 	// get the urls of the images 
@@ -26,10 +26,19 @@ function checkImageSize(imageUrls) {
 		var img = new Image();
 		img.src = imageUrls[i];
 		// console.log( "Image SRC: " + img.src + " \t Image Size: " + img.width + 'x' + img.height);
-		if (img.width > WIDTH)
-			bacon.push(img.src);
+		if (img.width > WIDTH){
+			// if the image meets our criteria, make an object out of it and store it
+			var slashIndex = imageUrls[i].lastIndexOf("/");
+			var picName = imageUrls[i].substring(slashIndex+1, imageUrls[i].txt);
+			imageObject = new Object();
+			imageObject.name = picName;
+			imageObject.width = img.width;
+			imageObject.height = img.height;
+			imageObject.src = img.src;
+			bacon.push(imageObject);
+		}
 	}
-	return bacon
+	return bacon;
 }
 
 function negResponse(){
@@ -62,7 +71,6 @@ function main(){
 		bacon = checkImageSize(imageUrls);
 		// remove the duplicates
 		bacon = removeDuplicates(bacon);
-
 		if(bacon){
 			// then send them to the background page
 			chrome.runtime.sendMessage({data: bacon}, function(response) {

@@ -19,12 +19,9 @@ function get_urls() {
     listContainer.appendChild(listElement);
 
 	// loop through the urls, and append them to the ol object
-  	for (var i = picUrls.length - 1; i >= 0; i--) {
-      var slashIndex = picUrls[i].lastIndexOf("/");
-      var picName = picUrls[i].substring(slashIndex+1, picUrls[i].txt);
-
+    for (var i = picUrls.length - 1; i >= 0; i--) {
       var listItem = document.createElement("li");
-      listItem.innerHTML = "<a href='" + picUrls[i] +"'>" + picName + "</a><img src='" + picUrls[i] + "'width=25%, height=25%></img>";
+      listItem.innerHTML = "<a href='" + picUrls[i].src +"'>" + picUrls[i].name + "</a><img src='" + picUrls[i].src + "'width=25%, height=25%></img>";
       listElement.appendChild(listItem);
     }
   }
