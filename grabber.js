@@ -4,7 +4,7 @@
 
 //constants/globals
 var HEIGHT = 500;
-var WIDTH = 50;
+var WIDTH = 500;
 
 function parseUrls() {
 	// get the urls of the images 
@@ -48,17 +48,20 @@ function negResponse(){
 	});
 }
 
-function removeDuplicates(things){
-	var arr = {};
+function removeDuplicates(bacon){
+	var unique = {};
+	var uniqueBacon = [];
 
-	for ( var i=0; i < things.length; i++ )
-	    arr[things[i]['src']] = things[i];
+	for (var i = 0; i < bacon.length; i++) {
+		unique[bacon[i].name] = i;
+	};
 
-	things = new Array();
-	for ( key in arr )
-	    things.push(arr[key]);
-
-	return things;
+	for(item in unique){
+		// console.log(unique[item]);
+		uniqueBacon.push(bacon[unique[item]]);
+	}
+	console.log(uniqueBacon);
+	return uniqueBacon;
 }
 
 function main(){
