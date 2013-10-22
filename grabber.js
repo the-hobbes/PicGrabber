@@ -60,7 +60,6 @@ function removeDuplicates(bacon){
 		// console.log(unique[item]);
 		uniqueBacon.push(bacon[unique[item]]);
 	}
-	console.log(uniqueBacon);
 	return uniqueBacon;
 }
 
