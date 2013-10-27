@@ -6,9 +6,7 @@ function get_urls() {
   var picUrls = chrome.extension.getBackgroundPage().IMAGE_URLS;
   if (picUrls){
   	console.log("The popup.js is working")
-
-  	// picUrls = ["www.google.com", "www.google2.com", "www.google3.com"];
-  	
+      	
   	// create a container object for the list
   	var listContainer = document.createElement("div");	
   	// add it to the DOm
