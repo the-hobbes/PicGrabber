@@ -4,7 +4,7 @@
 
 //constants/globals
 var HEIGHT = 500;
-var WIDTH = 500;
+var WIDTH = 200;
 
 function parseUrls() {
 	// get the urls of the images 
