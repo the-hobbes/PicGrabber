@@ -3,37 +3,23 @@
 <html>
   <head>
     <title>PicGrabber</title>
-    <style>
-        body{
-          min-width: 357px;
-          overflow: scroll;
-        }
-        div > ul > li{
-          list-style-type: none !important;
-          padding:0; margin:0;
-        }
-
-        li {
-          display: inline;
-        }
-        img{
-          border: 1px solid #000;
-          margin: 5px;
-        }
-        h3, #btn-container{
-          text-align: center;
-        }
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
  
   <body>
-    <h3>Download the following pictures:</h1>
-    <hr>
-    <div id="btn-container"></div>
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="7tvbf4mpgd2v56z"></script> 
-    <!--<script type="text/javascript" src="dropin.js"></script> -->
-    <script type="text/javascript" src="popup.js"></script>
+    <div id="loadingImage">
+      <center> <img src="ajax-loader.gif"> </center> 
+    </div> <!-- end loading image -->
+
+    <div id="content">
+      <h3>Download the following pictures:</h3>
+      <div id="btn-container"></div>
+      <hr>
+      <div id="ulContainer"></div>
+    </div> <!-- end content -->
   </body>
+
+  <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="7tvbf4mpgd2v56z"></script> 
+  <script type="text/javascript" src="popup.js"></script>
 </html>
 

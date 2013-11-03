@@ -2,15 +2,15 @@
 	This is the popup.js file, used to receive the list of urls that the grabber content script has found and expose them to the popup.html file.
 **/
 
-function get_urls() {
+function get_urls(ceaseLoading) {
   var picUrls = chrome.extension.getBackgroundPage().IMAGE_URLS;
-  if (picUrls){
+  if (picUrls.length > 0){
   	console.log("The popup.js is working")
       	
   	// create a container object for the list
   	var listContainer = document.createElement("div");	
   	// add it to the DOm
-  	document.getElementsByTagName("body")[0].appendChild(listContainer);
+  	document.getElementById("ulContainer").appendChild(listContainer);
   	// create a ul object for the list items
   	var listElement = document.createElement("ul");
   	// add that to the DOm
@@ -21,7 +21,6 @@ function get_urls() {
   	// loop through the urls, and append them to the ul object
     for (var i = picUrls.length - 1; i >= 0; i--) {
       var listItem = document.createElement("li");
-      // listItem.innerHTML = "<a href='" + picUrls[i].src +"'>" + picUrls[i].name + "</a><img src='" + picUrls[i].src + "'width=25%, height=25%></img>";
       listItem.innerHTML = "<img src='" + picUrls[i].src + "'width=25%, height=25%></img>";
       listElement.appendChild(listItem);
 
@@ -39,11 +38,27 @@ function get_urls() {
       cancel: function() {},
       error: function(errmsg) {}
     } // end options
+
+    Dropbox.createSaveButton(options);
+    var btn = Dropbox.createSaveButton(options);
+    document.getElementById('btn-container').appendChild(btn);
   }
-  
-  Dropbox.createSaveButton(options);
-  var btn = Dropbox.createSaveButton(options);
-  document.getElementById('btn-container').appendChild(btn); 
+  else{
+    console.log("nothing big enough");
+    document.body.innerHTML = "No images of sufficient size on the page.";
+  }
+
+  // stop loading gif. render other elements visible w/the callback
+  ceaseLoading();
 }
 
-window.onload = get_urls();
+
+function ceaseLoading(){
+  // console.log("got to cease loading function");
+  var loader = document.getElementById("loadingImage");
+  loader.style.display = "none";
+  var content = document.getElementById("content");
+  content.style.display = "block";
+}
+
+window.onload = get_urls(ceaseLoading);

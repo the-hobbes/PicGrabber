@@ -1,0 +1,25 @@
+body{
+  min-width: 357px;
+  overflow: scroll;
+}
+div > ul > li{
+  list-style-type: none !important;
+  padding:0; margin:0;
+}
+
+li {
+  display: inline;
+}
+img{
+  border: 1px solid #000;
+  margin: 5px;
+}
+h3, #btn-container{
+  text-align: center;
+}
+#loadingImage{
+  display: block;
+}
+#content{
+  display: none;
+}
