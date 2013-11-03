@@ -2,13 +2,6 @@
 	This is the backgrounf file. Coordinates passing of data between the grabber.js content script and the popup content script
 **/
 
-// chrome.browserAction.onClicked.addListener(function(tab) {
-//   // No tabs or host permissions needed!
-//   chrome.tabs.executeScript({
-//     file: "popup.js"
-//     });
-// });
-
 var IMAGE_URLS = []
 var test = "hodor";
 
@@ -23,7 +16,6 @@ chrome.runtime.onMessage.addListener(
     	sendResponse({backgroundResponse: "No pictures to grab!"});
     }
   });
-
 
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
   // fire when a new tab is made and its finished loading

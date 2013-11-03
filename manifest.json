@@ -3,7 +3,11 @@
   "version": "2.0",
   "permissions": [
     "activeTab",
-    "tabs", "<all_urls>", "background"
+    "tabs", 
+    "<all_urls>", 
+    "background", 
+    "http://*/*", 
+    "https://*/*"
   ],
   "content_scripts": [{
         "js": ["grabber.js"],
@@ -19,5 +23,5 @@
     "default_popup": "popup.html"
   },
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://www.dropbox.com/static/api/1/dropins.js; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://www.dropbox.com; object-src 'self'"
 }
