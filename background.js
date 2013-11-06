@@ -17,21 +17,21 @@ chrome.runtime.onMessage.addListener(
     }
   });
 
-// chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-//   // fire when a new tab is made and its finished loading
-//   if (changeInfo.status == 'complete' && tab.active) {
-//     // alert("Derp");
-//     chrome.tabs.executeScript({
-//     file: "grabber.js"
-//     });
-//   }
-// })
+chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+  // fire when a new tab is made and its finished loading
+  if (changeInfo.status == 'complete' && tab.active) {
+    // alert("Derp");
+    chrome.tabs.executeScript({
+    file: "grabber.js"
+    });
+  }
+})
 
 chrome.tabs.onActivated.addListener(function(activeInfo) {
   // fire when you switch to a new tab
-    chrome.tabs.get(activeInfo.tabId, function (tab) {
-      chrome.tabs.executeScript({
-        file: "grabber.js"
-        });
-    });
+      chrome.tabs.get(activeInfo.tabId, function (tab) {
+        chrome.tabs.executeScript({
+          file: "grabber.js"
+          });
+      });
 });

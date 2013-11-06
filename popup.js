@@ -16,32 +16,19 @@ function get_urls(ceaseLoading) {
   	// add that to the DOm
     listContainer.appendChild(listElement);
 
-    saveThese = []
-
   	// loop through the urls, and append them to the ul object
     for (var i = picUrls.length - 1; i >= 0; i--) {
       var listItem = document.createElement("li");
-      listItem.innerHTML = "<img src='" + picUrls[i].src + "'width=25%, height=25%></img>";
+      listItem.innerHTML = "<a href=" + picUrls[i].src + " download=" + picUrls[i].src + " class='clickit'><img src=" + picUrls[i].src + " width=25%, height=25%>" + "</a>";
+      // listItem.innerHTML = "<img class='clickit' src='" + picUrls[i].src + "'width=25%, height=25%></img>";
       listElement.appendChild(listItem);
-
-      saveThese.push({
-        'url':picUrls[i].src,
-        'filename':picUrls[i].name
-      });
     }
 
-    // create dropbox saver dropin
-    options = {
-      files: saveThese,
-      success: function() {},
-      progress: function(progress) {},
-      cancel: function() {},
-      error: function(errmsg) {}
-    } // end options
-
-    Dropbox.createSaveButton(options);
-    var btn = Dropbox.createSaveButton(options);
-    document.getElementById('btn-container').appendChild(btn);
+    // add saver button
+    // var saver = "<a href='#' onclick='downloadit();'>Download All</a>";
+    // var currElement = document.getElementById("btn-container");
+    // console.log(currElement);
+    // currElement.appendChild(saver);
   }
   else{
     console.log("nothing big enough");
@@ -52,13 +39,40 @@ function get_urls(ceaseLoading) {
   ceaseLoading();
 }
 
-
 function ceaseLoading(){
   // console.log("got to cease loading function");
-  var loader = document.getElementById("loadingImage");
-  loader.style.display = "none";
-  var content = document.getElementById("content");
-  content.style.display = "block";
+  try{
+    var loader = document.getElementById("loadingImage");
+    loader.style.display = "none";
+    var content = document.getElementById("content");
+    content.style.display = "block";
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var link = document.getElementById('fireDownload');
+    // onClick's logic below:
+    try{
+      link.addEventListener('click', function() {
+          downloadit();
+      });
+    }
+    catch(err){
+      console.log(err);
+    }
+});
+
+function downloadit(){
+
+    for (var i = 0; i < document.getElementsByClassName("clickit").length; i++){   
+      var clickEvent = document.createEvent("MouseEvent");
+    clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+        document.getElementsByClassName("clickit")[i].dispatchEvent(clickEvent);
+    }
+    return false;
 }
 
 window.onload = get_urls(ceaseLoading);
