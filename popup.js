@@ -53,6 +53,7 @@ function ceaseLoading(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  //a add an event listener to the firedownload button object
     var link = document.getElementById('fireDownload');
     // onClick's logic below:
     try{
@@ -65,12 +66,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function simulateClick() {
+  var event = new MouseEvent('click', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+  var cb = document.getElementById('checkbox'); 
+  var canceled = !cb.dispatchEvent(event);
+  if (canceled) {
+    // A handler called preventDefault.
+    alert("canceled");
+  } else {
+    // None of the handlers called preventDefault.
+    alert("not canceled");
+  }
+} 
+
 function downloadit(){
+  //perform the actual download, looping through the clickit elements and downloading their targets
+    
 
     for (var i = 0; i < document.getElementsByClassName("clickit").length; i++){   
-      var clickEvent = document.createEvent("MouseEvent");
-    clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
-        document.getElementsByClassName("clickit")[i].dispatchEvent(clickEvent);
+      console.log("got here " + i);
+      // var clickEvent = document.createEvent("MouseEvent");
+      // var clickEvent = newCustomEvent("MouseEvent");
+      // clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+      // document.getElementsByClassName("clickit")[i].dispatchEvent(clickEvent);
+      window.open(document.getElementsByClassName("clickit")[i]);
     }
     return false;
 }
