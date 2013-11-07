@@ -84,16 +84,31 @@ function simulateClick() {
 } 
 
 function downloadit(){
-  //perform the actual download, looping through the clickit elements and downloading their targets
-    
+  //perform the actual download, looping through the clickit elements and downloading their targets  
 
-    for (var i = 0; i < document.getElementsByClassName("clickit").length; i++){   
-      console.log("got here " + i);
-      // var clickEvent = document.createEvent("MouseEvent");
-      // var clickEvent = newCustomEvent("MouseEvent");
-      // clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+    for (var i = 0; i < document.getElementsByClassName("clickit").length; i++){  
+
+      // console.log("got here " + i);
+
+      // var event = new MouseEvent('click', {
+      //   'view': window,
+      //   'bubbles': true,
+      //   'cancelable': true
+      // });
+      // var targetElement = document.getElementsByClassName("clickit")[i];
+      // var canceled = !targetElement.dispatchEvent(event);
+      // if (canceled) {
+      //   // A handler called preventDefault.
+      //   console.log("canceled");
+      // } else {
+      //   // None of the handlers called preventDefault.
+      //   console.log("not canceled");
+      // }
+
+      var clickEvent = document.createEvent("MouseEvent");
+      clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+      setTimeout(document.getElementsByClassName("clickit")[i].dispatchEvent(clickEvent), 3000);
       // document.getElementsByClassName("clickit")[i].dispatchEvent(clickEvent);
-      window.open(document.getElementsByClassName("clickit")[i]);
     }
     return false;
 }
