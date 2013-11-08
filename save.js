@@ -46,9 +46,22 @@ function downloadAll(imgs, ext, limit) {
     }
 }
 
+function testDerp(stuff){
+    console.log("got to testDerp, with: " + stuff[0]);
+}
+
 function doit(amountImages) {
-    var imgs = document.querySelectorAll("img");
-    downloadAll(imgs, "jpg", amountImages);
+    // var imgs = document.querySelectorAll("img");
+    // downloadAll(imgs, "jpg", amountImages);
+   
+    chrome.extension.sendMessage({directive: "getImages"}, function(response) {
+        var pictureObjects = response.backgroundResponse;
+        var imgUrls = [];
+        for (var i = 0; i < pictureObjects.length; i++) {
+            imgUrls.push(pictureObjects[i].src);
+        };
+        testDerp(imgUrls);
+    });
 }
 
 doit(-1);

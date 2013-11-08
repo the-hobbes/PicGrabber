@@ -27,6 +27,10 @@ chrome.extension.onMessage.addListener(
           IMAGE_URLS = request.data;
           sendResponse({backgroundResponse: "Pictures grabbed!"});
           break;
+        case "getImages":
+          // get the image urls data structure that has been set
+          sendResponse({backgroundResponse: IMAGE_URLS});
+          break;
         default:
             // helps debug when request directive doesn't match
             alert("Unmatched request of '" + request.directive + "' from script to background.js from " + sender);
