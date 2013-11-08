@@ -24,16 +24,7 @@ function download(img) {
 /* Download all images in 'imgs'. 
  * Optionaly filter them by extension (e.g. "jpg") and/or 
  * download the 'limit' first only  */
-function downloadAll(imgs, ext, limit) {
-    /* If specified, filter images by extension */
-    if (ext) {
-        ext = "." + ext;
-        imgs = [].slice.call(imgs).filter(function(img) {
-            var src = img.src;
-            return (src && (src.indexOf(ext, src.length - ext.length) !== -1));
-        });
-    }
-
+function downloadAll(imgs, limit) {
     /* Determine the number of images to download */
     limit = (limit && (0 <= limit) && (limit <= imgs.length))
             ? limit : imgs.length;
@@ -41,7 +32,7 @@ function downloadAll(imgs, ext, limit) {
     /* (Try to) download the images */
     for (var i = 0; i < limit; i++) {
         var img = imgs[i];
-        console.log("IMG: " + img.src + " (", img, ")");
+        // console.log("IMG: " + img.src + " (", img, ")");
         download(img);
     }
 }
@@ -52,15 +43,11 @@ function testDerp(stuff){
 
 function doit(amountImages) {
     // var imgs = document.querySelectorAll("img");
-    // downloadAll(imgs, "jpg", amountImages);
+    // downloadAll(imgs, amountImages);
    
     chrome.extension.sendMessage({directive: "getImages"}, function(response) {
-        var pictureObjects = response.backgroundResponse;
-        var imgUrls = [];
-        for (var i = 0; i < pictureObjects.length; i++) {
-            imgUrls.push(pictureObjects[i].src);
-        };
-        testDerp(imgUrls);
+        var imageObjects = response.backgroundResponse;
+        downloadAll(imageObjects, amountImages);
     });
 }
 

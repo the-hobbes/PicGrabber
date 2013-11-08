@@ -5,14 +5,11 @@
     "activeTab",
     "tabs", 
     "<all_urls>", 
-    "background", 
-    "notifications",
-    "http://*/*", 
-    "https://*/*"
+    "background"
   ],
   "content_scripts": [{
         "js": ["grabber.js"],
-        "matches": ["http://*/*", "https://*/*"]
+        "matches": ["<all_urls>"]
     }],
   "background": {
     "scripts": ["background.js"],

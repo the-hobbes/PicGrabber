@@ -5,10 +5,10 @@
 **/
 
 var IMAGE_URLS = []
-var test = "hodor";
 
 // chrome.tabs.executeScript(null, {file: "grabber.js"});
 
+// listen to various directives from the content scripts
 chrome.extension.onMessage.addListener(
     function(request, sender, sendResponse) {
         switch (request.directive) {
@@ -19,7 +19,7 @@ chrome.extension.onMessage.addListener(
                 file: "save.js", // script to inject into page and run in sandbox
                 allFrames: true // This injects script into iframes in the page and doesn't work before 4.0.266.0.
             });
-            sendResponse({}); // sending back empty response to sender
+            sendResponse({backgroundResponse: "save executed!"}); // sending back empty response to sender
             break;
         case "setImages":
           // set the image urls from pigrabber
@@ -37,3 +37,10 @@ chrome.extension.onMessage.addListener(
         }
     }
 );
+
+// when the active tab is changed, execute the grabber script on it so we always have fresh information
+chrome.tabs.onActivated.addListener(function(info) {
+    var tab = chrome.tabs.get(info.tabId, function(tab) {
+      chrome.tabs.executeScript(null, {file: "grabber.js"});
+    });
+});
