@@ -1,5 +1,5 @@
 /**
-	This is the content script file. Coordinated by background.js
+	This is the content script that scrapes the webpage for images. Coordinated by background.js
 **/
 
 //constants/globals
@@ -75,9 +75,10 @@ function main(){
 		bacon = removeDuplicates(bacon);
 		if(bacon){
 			// then send them to the background page
-			chrome.runtime.sendMessage({data: bacon}, function(response) {
-			  console.log(response.backgroundResponse);
-			});
+			chrome.extension.sendMessage({directive: "setImages", data: bacon}, function(response) {
+		        console.log(response.backgroundResponse);
+		        this.close(); // close the popup when the background finishes processing request
+		    });
 		}
 		else
 			negResponse();

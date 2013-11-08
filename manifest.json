@@ -26,3 +26,5 @@
   "manifest_version": 2
   // "content_security_policy": "script-src 'self' chrome://ioealcadapclkneiclmkpfpgjiehdalb; object-src 'self'"
 }
+
+// to stop save.js from getting executed every time, i just took it out of the content_scripts
