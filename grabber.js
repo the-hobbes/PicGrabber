@@ -77,7 +77,6 @@ function main(){
 			// then send them to the background page
 			chrome.extension.sendMessage({directive: "setImages", data: bacon}, function(response) {
 		        console.log(response.backgroundResponse);
-		        this.close(); // close the popup when the background finishes processing request
 		    });
 		}
 		else
