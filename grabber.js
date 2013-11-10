@@ -22,10 +22,8 @@ function checkImageSize(imageUrls) {
 	var bacon = []; // bacon is what we want.
 	// check the image size to see if it is large enough to warrant a download
 	for (var i = 0; i < imageUrls.length; i++){
-		//check the size of each image
 		var img = new Image();
 		img.src = imageUrls[i];
-		// console.log( "Image SRC: " + img.src + " \t Image Size: " + img.width + 'x' + img.height);
 		if (img.width > WIDTH){
 			// if the image meets our criteria, make an object out of it and store it
 			var slashIndex = imageUrls[i].lastIndexOf("/");
@@ -65,7 +63,6 @@ function removeDuplicates(bacon){
 
 function main(){
 	// find the images
-	// console.log("got to grabber.js")
 	var imageUrls = parseUrls();
 
 	if (imageUrls){

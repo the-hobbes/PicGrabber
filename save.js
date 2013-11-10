@@ -1,6 +1,8 @@
 /**
     This is the content script that saves images from the browser tab. Called by a button click from popup.js. which then goes to the background page listener, which
     then executes this script.
+
+    Thanks to http://stackoverflow.com/users/2341938/expertsystem for this code.
 **/
 
 /* Download an img */
@@ -32,19 +34,11 @@ function downloadAll(imgs, limit) {
     /* (Try to) download the images */
     for (var i = 0; i < limit; i++) {
         var img = imgs[i];
-        // console.log("IMG: " + img.src + " (", img, ")");
         download(img);
     }
 }
 
-function testDerp(stuff){
-    console.log("got to testDerp, with: " + stuff[0]);
-}
-
-function doit(amountImages) {
-    // var imgs = document.querySelectorAll("img");
-    // downloadAll(imgs, amountImages);
-   
+function doit(amountImages) {  
     chrome.extension.sendMessage({directive: "getImages"}, function(response) {
         var imageObjects = response.backgroundResponse;
         downloadAll(imageObjects, amountImages);
