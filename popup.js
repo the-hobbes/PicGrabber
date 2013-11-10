@@ -2,7 +2,7 @@
 	This is the popup.js file, used to receive the list of urls that the grabber content script has found and expose them to the popup.html file.
 **/
 
-function get_urls(ceaseLoading) {
+function get_urls() {
   var picUrls = chrome.extension.getBackgroundPage().IMAGE_URLS;
   if (picUrls.length > 0){
   	console.log("The popup.js is working")
@@ -28,13 +28,9 @@ function get_urls(ceaseLoading) {
     console.log("nothing big enough");
     document.body.innerHTML = "No images of sufficient size on the page.";
   }
-
-  // stop loading gif. render other elements visible w/the callback
-  ceaseLoading();
 }
 
 function ceaseLoading(){
-  // console.log("got to cease loading function");
   try{
     var loader = document.getElementById("loadingImage");
     loader.style.display = "none";
@@ -44,6 +40,8 @@ function ceaseLoading(){
   catch(err){
     console.log(err);
   }
+  //start loading the rest of the script
+  get_urls();
 }
 
 function clickHandler(e) {
@@ -56,4 +54,5 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('click-me').addEventListener('click', clickHandler);
 })
 
-window.onload = get_urls(ceaseLoading);
+// when the page loads, remove the gif and execute the rest
+window.onload = ceaseLoading()
