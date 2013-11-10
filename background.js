@@ -11,6 +11,7 @@ var IMAGE_URLS = []
 // listen to various directives from the content scripts
 chrome.extension.onMessage.addListener(
     function(request, sender, sendResponse) {
+      console.log(request.Dir)
         switch (request.directive) {
         case "popup-click":
             // alert("Request: '" + request.directive + "' from " + sender);
