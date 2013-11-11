@@ -42,3 +42,6 @@ chrome.tabs.onActivated.addListener(function(info) {
       chrome.tabs.executeScript(null, {file: "grabber.js"});
     });
 });
+
+// tracking code
+_gaq.push(['_trackPageview']);
