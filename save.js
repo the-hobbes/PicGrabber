@@ -42,12 +42,10 @@ function testDerp(stuff){
 }
 
 function doit(amountImages) {
-    // var imgs = document.querySelectorAll("img");
-    // downloadAll(imgs, amountImages);
-   
     chrome.extension.sendMessage({directive: "getImages"}, function(response) {
         var imageObjects = response.backgroundResponse;
         downloadAll(imageObjects, amountImages);
+        // testDerp(imageObjects);
     });
 }
 

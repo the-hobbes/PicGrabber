@@ -53,7 +53,7 @@ function removeDuplicates(bacon){
 	var uniqueBacon = [];
 
 	for (var i = 0; i < bacon.length; i++) {
-		unique[bacon[i].name] = i;
+		unique[bacon[i].src] = i;
 	};
 
 	for(item in unique){
