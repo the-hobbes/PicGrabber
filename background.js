@@ -16,7 +16,6 @@ chrome.extension.onMessage.addListener(
             // execute the saving content script (called from the click handler in popup.js)
             chrome.tabs.executeScript(null, { // defaults to the current tab
                 file: "save.js", // script to inject into page and run in sandbox
-                allFrames: true // This injects script into iframes in the page and doesn't work before 4.0.266.0.
             });
             sendResponse({backgroundResponse: "save executed!"});
             break;
