@@ -4,9 +4,7 @@
 
 function get_urls() {
   var picUrls = chrome.extension.getBackgroundPage().IMAGE_URLS;
-  if (picUrls.length > 0){
-  	console.log("The popup.js is working")
-      	
+  if (picUrls.length > 0){      	
   	// create a container object for the list
   	var listContainer = document.createElement("div");	
   	// add it to the DOm
@@ -15,7 +13,6 @@ function get_urls() {
   	var listElement = document.createElement("ul");
   	// add that to the DOm
     listContainer.appendChild(listElement);
-
   	// loop through the urls, and append them to the ul object
     for (var i = picUrls.length - 1; i >= 0; i--) {
       var listItem = document.createElement("li");
@@ -53,6 +50,17 @@ function clickHandler(e) {
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('click-me').addEventListener('click', clickHandler);
 })
+
+// tracking code for analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-11781420-7']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = 'https://ssl.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 // when the page loads, remove the gif and execute the rest
 window.onload = ceaseLoading()

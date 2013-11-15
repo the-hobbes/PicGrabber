@@ -6,7 +6,6 @@
 
 var IMAGE_URLS = []
 
-// chrome.tabs.executeScript(null, {file: "grabber.js"});
 
 // listen to various directives from the content scripts
 chrome.extension.onMessage.addListener(
@@ -14,17 +13,15 @@ chrome.extension.onMessage.addListener(
       console.log(request.Dir)
         switch (request.directive) {
         case "popup-click":
-            // alert("Request: '" + request.directive + "' from " + sender);
-            // execute the saving content script
+            // execute the saving content script (called from the click handler in popup.js)
             chrome.tabs.executeScript(null, { // defaults to the current tab
                 file: "save.js", // script to inject into page and run in sandbox
                 allFrames: true // This injects script into iframes in the page and doesn't work before 4.0.266.0.
             });
-            sendResponse({backgroundResponse: "save executed!"}); // sending back empty response to sender
+            sendResponse({backgroundResponse: "save executed!"});
             break;
         case "setImages":
-          // set the image urls from pigrabber
-          // alert("Request: '" + request.directive + "' from " + sender);
+          // set the image urls data structure. Called from grabber.js
           IMAGE_URLS = request.data;
           sendResponse({backgroundResponse: "Pictures grabbed!"});
           break;
@@ -45,3 +42,6 @@ chrome.tabs.onActivated.addListener(function(info) {
       chrome.tabs.executeScript(null, {file: "grabber.js"});
     });
 });
+
+// tracking code
+_gaq.push(['_trackPageview']);
